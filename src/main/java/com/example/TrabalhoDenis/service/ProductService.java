@@ -1,31 +1,35 @@
-package com.example.TrabalhoDenis.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-
-import com.example.TrabalhoDenis.model.Product;
-import com.example.TrabalhoDenis.repository.ProductRepository;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    private ProductRepository repository;
+    private final ProductRepository productRepository;
 
-    public List<Product> findAll() {
-        return repository.findAll();
+    public List<Product> listAll() {
+        return productRepository.findAll();
+    }
+
+    public Product findById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
     public Product save(Product product) {
-        if (product.getPrice() <= 0) {
-            throw new RuntimeException("Preço menor que 0");
-        }
-        return repository.save(product);
+        return productRepository.save(product);
+    }
+
+    public Product update(Long id, Product updated) {
+        Product existing = findById(id);
+        existing.setName(updated.getName());
+        existing.setDescription(updated.getDescription());
+        existing.setPrice(updated.getPrice());
+        existing.setStockQuantity(updated.getStockQuantity());
+        existing.setCategory(updated.getCategory());
+        return productRepository.save(existing);
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        productRepository.deleteById(id);
     }
 }

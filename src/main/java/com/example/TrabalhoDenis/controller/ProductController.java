@@ -1,6 +1,6 @@
 package com.example.TrabalhoDenis.controller;
 
-import com.example.TrabalhoDenis.service.ProductService;
+import com.example.TrabalhoDenis.service.Produc;
 import com.example.TrabalhoDenis.model.Product;
 
 import org.springframework.web.bind.annotation.*;
@@ -8,25 +8,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    private ProductService service;
+    private final ProductService productService;
 
     @GetMapping
-    public List<Product> getAll() {
-        return service.findAll();
+    public List<Product> listAll() {
+        return productService.listAll();
+    }
+
+    @GetMapping("/{id}")
+    public Product findById(@PathVariable Long id) {
+        return productService.findById(id);
     }
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
-        return service.save(product);
+    public ResponseEntity<Product> create(@RequestBody Product product) {
+        return ResponseEntity.status(201).body(productService.save(product));
+    }
+
+    @PutMapping("/{id}")
+    public Product update(@PathVariable Long id, @RequestBody Product product) {
+        return productService.update(id, product);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        productService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
