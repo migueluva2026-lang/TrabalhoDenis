@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
+
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
@@ -19,8 +19,7 @@ public class CategoryService {
     }
 
     public Category findById(Long id) {
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
     }
 
     public Category save(Category category) {
@@ -28,9 +27,9 @@ public class CategoryService {
     }
 
     public Category update(Long id, Category updated) {
-        Category existing = findById(id);
-        existing.setName(updated.getName());
-        return categoryRepository.save(existing);
+        Category categoria = findById(id);
+        categoria.setName(updated.getName());
+        return categoryRepository.save(categoria);
     }
 
     public void delete(Long id) {

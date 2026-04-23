@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(name = "products")
+
 public class Product {
 
     @Id

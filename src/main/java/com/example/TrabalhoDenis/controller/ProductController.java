@@ -6,7 +6,6 @@ import com.example.TrabalhoDenis.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

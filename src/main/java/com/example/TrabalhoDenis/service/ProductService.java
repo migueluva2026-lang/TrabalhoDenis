@@ -19,8 +19,7 @@ public class ProductService {
     }
 
     public Product findById(Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Produto não encontrado"));
     }
 
     public Product save(Product product) {
@@ -28,13 +27,13 @@ public class ProductService {
     }
 
     public Product update(Long id, Product updated) {
-        Product existing = findById(id);
-        existing.setName(updated.getName());
-        existing.setDescription(updated.getDescription());
-        existing.setPrice(updated.getPrice());
-        existing.setStockQuantity(updated.getStockQuantity());
-        existing.setCategory(updated.getCategory());
-        return productRepository.save(existing);
+        Product produto = findById(id);
+        produto.setName(updated.getName());
+        produto.setDescription(updated.getDescription());
+        produto.setPrice(updated.getPrice());
+        produto.setStockQuantity(updated.getStockQuantity());
+        produto.setCategory(updated.getCategory());
+        return productRepository.save(produto);
     }
 
     public void delete(Long id) {
