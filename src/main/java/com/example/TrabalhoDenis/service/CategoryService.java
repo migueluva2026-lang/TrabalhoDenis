@@ -1,5 +1,13 @@
 package com.example.TrabalhoDenis.service;
 
+import com.example.TrabalhoDenis.model.Category;
+import com.example.TrabalhoDenis.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+
 @Service
 @RequiredArgsConstructor
 public class CategoryService {

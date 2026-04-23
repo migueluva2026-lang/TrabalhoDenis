@@ -1,17 +1,19 @@
 package com.example.TrabalhoDenis.controller;
 
-import com.example.TrabalhoDenis.service.Produc;
+import com.example.TrabalhoDenis.service.ProductService;
 import com.example.TrabalhoDenis.model.Product;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
+
 public class ProductController {
 
     private final ProductService productService;

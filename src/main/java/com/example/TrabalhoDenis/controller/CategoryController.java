@@ -1,5 +1,15 @@
 package com.example.TrabalhoDenis.controller;
 
+import com.example.TrabalhoDenis.model.Category;
+import com.example.TrabalhoDenis.service.CategoryService;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/categories")
