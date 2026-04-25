@@ -1,4 +1,11 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
+    width: 100%;
     background: #121212;
     font-family: Arial;
     display: flex;
@@ -9,10 +16,16 @@ body {
 }
 
 .login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
     background: #1e1e1e;
     padding: 30px;
     border-radius: 10px;
-    width: 300px;
+    width: 360px;
+    min-width: 350px;
+    height: 300px;
     text-align: center;
 }
 
@@ -25,7 +38,8 @@ input {
 }
 
 button {
-    width: 100%;
+    margin-top: 20px;
+    width: 60%;
     padding: 10px;
     background: #00aaff;
     border: none;
@@ -36,9 +50,4 @@ button {
 
 button:hover {
     background: #0088cc;
-}
-
-#mensagem {
-    margin-top: 10px;
-    color: red;
 }

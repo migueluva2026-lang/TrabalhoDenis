@@ -1,6 +1,7 @@
 //
 // Código Feito por: Policarpo
 //
+
 package com.example.TrabalhoDenis.security;
 
 import io.jsonwebtoken.*;
@@ -14,17 +15,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Utilitário para geração e validação de tokens JWT.
- * 
- * JWT (JSON Web Token) é um padrão para transmitir informações entre partes
- * como um objeto JSON compacto e autocontido.
- * 
- * Estrutura do token: HEADER.PAYLOAD.SIGNATURE
- *   - Header: algoritmo de assinatura (HS256)
- *   - Payload: dados do usuário (claims): email, role, expiração
- *   - Signature: garante que o token não foi alterado
- */
+// Gera e valida tokens JWT.
+//
+// JWT (JSON Web Token) é um padrão para transmitir informações entre partes
+// como um objeto JSON compacto e autocontido.
+//
+// Estrutura do token: HEADER.PAYLOAD.SIGNATURE
+// Header: algoritmo de assinatura (HS256)
+// Payload: dados do usuário (claims): email, role, expiração
+// Signature: garante que o token não foi alterado
+
 @Component
 public class JwtUtil {
 
@@ -49,9 +49,9 @@ public class JwtUtil {
         return criarToken(claims, userDetails.getUsername());
     }
 
-    /**
-     * Monta o token com header, payload e assinatura.
-     */
+
+    // Monta o token com header, payload e assinatura.
+
     private String criarToken(Map<String, Object> claims, String subject) {
         Date agora = new Date();
         Date expiracao = new Date(agora.getTime() + jwtExpiration);

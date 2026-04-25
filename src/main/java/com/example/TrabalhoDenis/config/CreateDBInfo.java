@@ -9,6 +9,7 @@ import com.example.TrabalhoDenis.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class CreateDBInfo implements CommandLineRunner {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args)
@@ -24,9 +26,8 @@ public class CreateDBInfo implements CommandLineRunner {
         if (userRepository.findByEmail("admin@gmail.com").isEmpty()) {
 
             User user = new User();
-            user.setName("Admin");
             user.setEmail("admin@gmail.com");
-            user.setPassword("admin");
+            user.setPassword(passwordEncoder.encode("admin"));
             user.setRole("ADMIN");
             user.setActive(true);
 

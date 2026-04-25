@@ -1,7 +1,3 @@
-//
-// Código Feito por: Policarpo
-//
-
 package com.example.TrabalhoDenis.security;
 
 import jakarta.servlet.FilterChain;
@@ -21,13 +17,13 @@ import java.io.IOException;
 
 /**
  * Filtro JWT — intercepta TODAS as requisições HTTP para validar o token.
- * 
+ *
  * Fluxo de execução:
  *   1. Extrai o header "Authorization: Bearer <token>"
  *   2. Valida o token com JwtUtil
  *   3. Carrega o usuário do banco de dados
  *   4. Registra a autenticação no SecurityContext do Spring
- * 
+ *
  * Estende OncePerRequestFilter: garante que o filtro é executado apenas uma vez por requisição.
  */
 @Component

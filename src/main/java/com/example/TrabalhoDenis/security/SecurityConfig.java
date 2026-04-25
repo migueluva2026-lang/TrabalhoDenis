@@ -4,8 +4,8 @@
 
 package com.example.TrabalhoDenis.security;
 
-import com.ecommerce.model.Usuario;
-import com.ecommerce.repository.UsuarioRepository;
+import com.example.TrabalhoDenis.model.User;
+import com.example.TrabalhoDenis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +44,7 @@ import java.util.List;
 class UsuarioDetailsService implements UserDetailsService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UserRepository usuarioRepository;
 
     /**
      * Carrega um usuário pelo e-mail (nosso username).
@@ -52,13 +52,13 @@ class UsuarioDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByEmail(email)
+        User usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
 
         // Converte a role String em GrantedAuthority do Spring Security
         return new org.springframework.security.core.userdetails.User(
                 usuario.getEmail(),
-                usuario.getSenha(),
+                usuario.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(usuario.getRole()))
         );
     }
@@ -123,9 +123,8 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /**
-     * Configura CORS para permitir chamadas do frontend.
-     */
+
+     // Configura CORS para permitir chamadas do frontend.
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
