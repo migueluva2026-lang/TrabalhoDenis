@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 
-public class ProductService {
+public class ProductService { // Contem a lógica para um produto (O CRUD). Criar(Create/C), procurar (ler/R) atualizar(Put/U), excluir(Delete/D)
 
     private final ProductRepository productRepository;
 

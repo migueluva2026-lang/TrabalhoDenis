@@ -15,17 +15,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-/**
- * Filtro JWT — intercepta TODAS as requisições HTTP para validar o token.
- *
- * Fluxo de execução:
- *   1. Extrai o header "Authorization: Bearer <token>"
- *   2. Valida o token com JwtUtil
+/** Filtro do Token. Todas as requisições a api passam por aqui pra validar o token.
+ * Fluxo do código:
+ *   1. Pega o header/cabeçalho que vai receber do fetch (Authorization: Bearer <token>)
+ *   2. Verifica e valida o token, feito lá no JwtUtil
  *   3. Carrega o usuário do banco de dados
  *   4. Registra a autenticação no SecurityContext do Spring
- *
- * Estende OncePerRequestFilter: garante que o filtro é executado apenas uma vez por requisição.
- */
+ * A classe usa OncePerRequestFilter, isso garante que o filtro é executado apenas uma vez por requisição */
+
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
@@ -46,7 +43,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = null;
         String email = null;
 
-        // 2. Verifica se o header existe e começa com "Bearer "
+        // 2. Verifica se o header existe e começa com "Bearer"
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             // Remove o prefixo "Bearer " para ficar apenas com o token
             token = authHeader.substring(7);

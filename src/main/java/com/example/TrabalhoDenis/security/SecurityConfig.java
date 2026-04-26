@@ -1,7 +1,8 @@
 //
 // Código Feito por: Policarpo
-//
-
+// Implementa o UserDetailsService do Spring Security na mão
+// Chama loadUserByUsername() durante a autenticação
+// E então busca o usuário no banco de dados e verificar a senha.
 package com.example.TrabalhoDenis.security;
 
 import com.example.TrabalhoDenis.model.User;
@@ -34,29 +35,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Implementação de UserDetailsService do Spring Security.
- * 
- * O Spring Security chama loadUserByUsername() durante a autenticação
- * para buscar o usuário no banco de dados e verificar a senha.
- */
 @Service
 class UsuarioDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository usuarioRepository;
 
-    /**
-     * Carrega um usuário pelo e-mail (nosso username).
-     * Retorna um UserDetails com email, senha hash e roles.
-     */
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException { // Carrega um usuário pelo e-mail
         User usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
 
         // Converte a role String em GrantedAuthority do Spring Security
-        return new org.springframework.security.core.userdetails.User(
+        return new org.springframework.security.core.userdetails.User( // Retorna um UserDetails com email, senha hash e roles
                 usuario.getEmail(),
                 usuario.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(usuario.getRole()))
@@ -64,16 +55,15 @@ class UsuarioDetailsService implements UserDetailsService {
     }
 }
 
-/**
- * Configuração de segurança do Spring Security.
- * 
- * Define:
- *   - Rotas públicas (sem autenticação) vs. protegidas
- *   - Política de sessão: STATELESS (sem cookies/sessão — usamos JWT)
- *   - Filtro JWT personalizado
- *   - Codificador de senha BCrypt
- *   - CORS para o frontend
- */
+
+ // Configuração de segurança do Spring Security.
+ //
+ // Define
+ // Rotas públicas (sem autenticação) vs. protegidas
+ // Política de sessão: STATELESS (sem cookies, já que estamos usando JWT)
+ // Filtro personalizado pra token
+ // Codificador de senha BCrypt
+ // CORS para o frontend (De onde isso pode ser chamado, evita alguns GETs por exemplo, usa bastante POST)
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity  // Habilita @PreAuthorize nos controllers
@@ -85,9 +75,8 @@ public class SecurityConfig {
     @Autowired
     private UsuarioDetailsService usuarioDetailsService;
 
-    /**
-     * Define as regras de autorização HTTP e a cadeia de filtros.
-     */
+
+     // Define as regras de autorização HTTP e a cadeia de filtros.
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -124,7 +113,7 @@ public class SecurityConfig {
     }
 
 
-     // Configura CORS para permitir chamadas do frontend.
+    // Configura CORS para permitir chamadas do frontend.
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
@@ -137,10 +126,9 @@ public class SecurityConfig {
         return source;
     }
 
-    /**
-     * AuthenticationProvider: liga o UserDetailsService + PasswordEncoder.
-     * O Spring usa isso para verificar email/senha no login.
-     */
+
+    // O AuthenticationProvider liga o UserDetailsService + PasswordEncoder
+    // O Spring usa isso para verificar email/senha no login.
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -149,18 +137,15 @@ public class SecurityConfig {
         return provider;
     }
 
-    /**
-     * BCrypt é o algoritmo padrão para hash de senhas.
-     * Força 10 (2^10 = 1024 iterações de hash) — balanceia segurança e performance.
-     */
+    // BCrypt é o algoritmo padrão para hash de senhas
+    // Força 10 (2^10 = 1024 iterações de hash), deve ser bastante coisa
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
 
-    /**
-     * AuthenticationManager é usado no AuthController para autenticar o login.
-     */
+
+    // AuthenticationManager é usado no AuthController para autenticar o login.
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
             throws Exception {

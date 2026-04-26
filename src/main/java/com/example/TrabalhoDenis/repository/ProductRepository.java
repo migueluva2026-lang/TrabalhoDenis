@@ -5,6 +5,6 @@ import com.example.TrabalhoDenis.model.Product;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> { // Um repository é uma interface do banco de dados, ela "conversa" com ele
 
 }

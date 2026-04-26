@@ -20,7 +20,7 @@ public class UserService { // O service é onde tem a lógica que é chamada pra
         return userRepository.findAll(); // Usa a interface pra se comunicar com o DB. essa é a função do Repository.
     }
 
-    public User findById(Long id) { // Find By: Encontrar por. (findBy é meio que uma convenção do spring pra muita coisa
+    public User findById(Long id) { // Find By: Encontrar por (findBy é meio que uma convenção do spring pra muita coisa
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     }
 

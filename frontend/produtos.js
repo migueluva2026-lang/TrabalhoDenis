@@ -1,5 +1,8 @@
 //
 // Carrega Dinâmicamente os produtos baseado no DB, também faz o sort baseado na categoriaSelecionada
+// OBS: O token tem persistência por cache, se você logar uma vez ele vai ficar por um tempo no browser
+// OBS2: O token faz com que, caso você tente entrar em algum html sem logar, ele te move pra pagina de login
+// Se quiser testar é só dar localStorage.clear() no console do F12, isso limpa o token e você pode tentar entrar em outro html sem logar
 //
 
 const API = 'http://localhost:8080/api';

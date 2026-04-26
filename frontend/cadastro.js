@@ -1,6 +1,7 @@
 //
 // Carrega as informações do produto se já no DB, faz um PUT ou POST baseado se já existe também
-//
+// OBS: O token tem persistência por cache, se você logar uma vez ele vai ficar por um tempo no browser
+// OBS2: O token faz com que, caso você tente entrar em algum html sem logar, ele te move pra pagina de login
 
 const API = 'http://localhost:8080/api';
 

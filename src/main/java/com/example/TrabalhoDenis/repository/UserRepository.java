@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> { // Um repository é a interface do banco de dados, ela "conversa" com ele
+public interface UserRepository extends JpaRepository<User, Long> { // Um repository é uma interface do banco de dados, ela "conversa" com ele
     Optional<User> findByEmail(String email);
 }

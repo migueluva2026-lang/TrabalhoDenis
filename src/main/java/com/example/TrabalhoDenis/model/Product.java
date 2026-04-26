@@ -30,7 +30,7 @@ public class Product {
 
     @PrePersist
     public void prePersist() {
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now(); // usa a biblioteca de tempo do java pra pegar a hora que foi criado. Acho que não chegamos a implementar isso no frontend? Talvez um TODO
     }
 
     @ManyToOne
