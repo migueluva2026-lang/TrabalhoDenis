@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #000203;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.cadastro {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  min-height: 75vh;
+  width: 30%;
+  margin: 0 auto;
+  margin-top: 70px;
+}
+
+.formulario {
+  font-size: 20px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+input, select, textarea {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;    
+}
+
+input, textarea::placeholder {
+    font-family: Arial, Helvetica;
+}
+
+.enviar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    background-color: #007bff;
+    color: black;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.enviar:hover {
+    background-color: #0056b3;
+    color: white;
+}
