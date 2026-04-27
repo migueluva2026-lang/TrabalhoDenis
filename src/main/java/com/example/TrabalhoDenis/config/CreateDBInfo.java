@@ -11,6 +11,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+// Roda na primeira vez que roda o servidor e dá ao banco de dados informações iniciais (usuário admin e algumas categorias e produtos só pra checar se tá funcionando)
+// As condições garantem que nada duplica ou dá erro quando iniciar o servidor pela segunda vez
 @Configuration
 @RequiredArgsConstructor
 public class CreateDBInfo implements CommandLineRunner {
@@ -21,7 +23,7 @@ public class CreateDBInfo implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args)
+    public void run(String... args) // função principal
     {
         if (userRepository.findByEmail("admin@gmail.com").isEmpty()) {
 

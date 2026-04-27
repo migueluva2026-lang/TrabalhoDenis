@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 
-public class CategoryService {
+public class CategoryService { // Service das categorias, faz a mesma coisa que os outros Services, mas para a Entidade Categoria
 
     private final CategoryRepository categoryRepository;
 

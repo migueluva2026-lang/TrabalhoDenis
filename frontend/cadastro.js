@@ -18,6 +18,7 @@ function headers()
 if (!token()) window.location.href = 'login.html'; // Valida: Se não tenho token, não tenho acesso a pagina
 
 const editId = new URLSearchParams(window.location.search).get('id');
+let stockQuantity = 0;
 
 async function loadCategories()
 {
@@ -33,9 +34,29 @@ async function loadCategories()
         select.appendChild(opcao);
     });
 
+    // Só carrega o produto depois que as categorias já estão no select
+    // senão o campo de categoria não consegue ser meio que pré-selecionado
     if (editId) {
         loadProduct();
     }
+}
+
+function renderBotoesQntd() { // Renderiza os botões de quantidade caso esteja editando um produto
+    const campo = document.getElementById('campo-quantidade');
+    campo.innerHTML = `
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <button type="button" onclick="ajustarQtd(-10)">-10</button>
+            <button type="button" onclick="ajustarQtd(-1)">-1</button>
+            <span id="qtd-display" style="min-width:40px; text-align:center; font-size:18px;">${quantidadeAtual}</span>
+            <button type="button" onclick="ajustarQtd(1)">+1</button>
+            <button type="button" onclick="ajustarQtd(10)">+10</button>
+        </div>
+    `;
+}
+
+function ajustarQtd(valor) {
+    quantidadeAtual = Math.max(0, quantidadeAtual + valor);
+    document.getElementById('qtd-display').textContent = quantidadeAtual;
 }
 
 async function loadProduct()
@@ -47,7 +68,11 @@ async function loadProduct()
     document.getElementById('preco').value = product.price;
     document.getElementById('quantidade').value = product.stockQuantity;
     document.getElementById('descricao').value = product.description || '';
-    if (p.category) document.getElementById('categoria').value = product.category.id;
+
+    if (product.category) document.getElementById('categoria').value = product.category.id;
+
+    quantidadeAtual = product.stockQuantity;
+    renderBotoesQntd();
 
     document.querySelector('h1').textContent = 'Editar Produto';
     document.querySelector('.enviar').textContent = 'Salvar Alterações';
@@ -56,10 +81,12 @@ async function loadProduct()
 document.querySelector('.formulario').addEventListener('submit', async (e) => {
     e.preventDefault(); // Evita funcionamento padrão do browser
 
+    const qtd = editId ? quantidadeAtual: parseInt(document.getElementById('quantidade').value);
+
     const body = {
         name: document.getElementById('nome').value,
         price: parseFloat(document.getElementById('preco').value),
-        stockQuantity: parseInt(document.getElementById('quantidade').value),
+        stockQuantity: qtd,
         description: document.getElementById('descricao').value,
         category: { id: parseInt(document.getElementById('categoria').value) }
     };

@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "categories")
 
 
-public class Category {
+public class Category { // Diz oq essa entidade deve ter e como ela vai funcionar no db
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

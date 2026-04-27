@@ -44,7 +44,7 @@ function createFilter(nome, id)
     return btn;
 }
 
-function sortCards()
+function sortCards() // Esconde/mostra os cards de acordo com suas categorias
 {
     document.querySelectorAll('.card').forEach(card => {
         const visivel = categoriaSelecionada === 'todos' || card.dataset.categoria === categoriaSelecionada;
@@ -63,7 +63,7 @@ async function loadProducts()
     produtos.forEach(product => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.dataset.categoria = product.category ? String(product.category.id) : '';
+        card.dataset.categoria = product.category ? String(product.category.id) : ''; // Guarda o id da categoria no card pra o sortCards() conseguir filtrar
 
         card.innerHTML = `
             <h2>${product.name}</h2>

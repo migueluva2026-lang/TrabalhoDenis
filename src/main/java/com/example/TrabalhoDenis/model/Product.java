@@ -28,6 +28,7 @@ public class Product {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    // executado automaticamente antes de qualquer INSERT
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now(); // usa a biblioteca de tempo do java pra pegar a hora que foi criado. Acho que não chegamos a implementar isso no frontend? Talvez um TODO
